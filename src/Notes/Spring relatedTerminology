@@ -1,0 +1,99 @@
+Beans:
+
+Definition: In Spring, a bean is a Java object that is created, managed, and assembled by the Spring IoC container. It represents the basic building block of a Spring application.
+Explanation: Beans encapsulate application components and their configurations, and they are managed by the Spring IoC container, making them easily configurable and reusable.
+Dependency Injection (DI):
+
+Definition: Dependency Injection is a design pattern in Spring where the IoC container provides the dependencies of a class at runtime, rather than the class creating its own dependencies.
+Explanation: Instead of classes creating their own dependencies, Spring injects the required dependencies, promoting loose coupling and easier testing.
+Auto Wiring:
+
+Definition: Auto Wiring is a feature in Spring that allows automatic injection of dependencies into a Spring bean without explicit configuration.
+Explanation: Spring can automatically discover and wire together the dependencies of a bean based on conventions, reducing the need for manual wiring.
+IoC (Inversion of Control):
+
+Definition: Inversion of Control is a principle where the control flow of a program is inverted from the application to the framework. In Spring, IoC is achieved through Dependency Injection.
+Explanation: In a Spring application, the control of object creation and lifecycle is handed over to the Spring IoC container, allowing for more flexible and modular code.
+IoC Container:
+
+Definition: IoC Container is the core of the Spring framework responsible for managing the lifecycle of beans, their creation, and wiring of dependencies.
+Explanation: Spring IoC container creates, configures, and manages beans. It includes two types: BeanFactory (basic container) and ApplicationContext (advanced container with additional features).
+Application Context:
+
+Definition: Application Context is a container holding the configuration and state information of a Spring application, including the IoC container.
+Explanation: It serves as an interface to the Spring IoC container and provides additional functionality like event handling, internationalization, and more.
+Now, let's illustrate these concepts with an example:
+
+java
+Copy code
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+// Service interface
+interface MessageService {
+    String getMessage();
+}
+
+// Service implementation
+@Component
+class HelloWorldService implements MessageService {
+    @Override
+    public String getMessage() {
+        return "Hello, World!";
+    }
+}
+
+// Service consumer
+@Component
+class MessagePrinter {
+    private final MessageService service;
+
+    @Autowired
+    public MessagePrinter(MessageService service) {
+        this.service = service;
+    }
+
+    public void printMessage() {
+        System.out.println(service.getMessage());
+    }
+}
+
+// Configuration class
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class AppConfig {
+    // Additional bean definition (not using component scanning)
+    @Bean
+    public MessageService anotherMessageService() {
+        return () -> "Another Hello!";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create and configure the Spring IoC container
+        var context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        // Get bean instances from the context
+        var printer = context.getBean(MessagePrinter.class);
+
+        // Use the bean
+        printer.printMessage();
+    }
+}
+Explanation:
+
+HelloWorldService is a simple service providing a message.
+MessagePrinter is a service consumer that depends on a MessageService.
+AppConfig is a configuration class specifying additional beans.
+@Autowired is used for dependency injection in the MessagePrinter constructor.
+The Main class creates the Spring IoC container, retrieves the MessagePrinter bean, and uses it to print a message.
+This example demonstrates the concepts of beans, dependency injection, auto-wiring, IoC container, and application context in a simple Spring application.
+
+
+
+
+

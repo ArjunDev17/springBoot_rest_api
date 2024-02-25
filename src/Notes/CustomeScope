@@ -1,0 +1,128 @@
+    creation example for this
+    Custom Scope:
+
+    Description: You can create your own custom scopes by implementing the org.springframework.beans.factory.config.Scope interface. This allows you to define the exact behavior of the scope.
+    Example: (Custom scope implementation not provided here due to its complexity)
+    give me steps if we are going to create our own scope in which case may we need this feature
+
+    2 / 2
+
+    ChatGPT
+    Creating a custom scope in Spring is an advanced feature that you might need in scenarios where the built-in scopes (singleton, prototype, etc.) do not fulfill your specific requirements. Custom scopes can be useful when you have a specialized use case, such as managing beans with a specific lifecycle or state.
+
+    Let's create a simple example to illustrate the process of creating a custom scope. In this example, we'll create a custom scope called PeriodicScope that behaves like a prototype scope but recreates the bean periodically based on a specified time interval.
+
+    Define the Custom Scope Interface:
+    Create a custom scope interface by extending org.springframework.beans.factory.config.Scope. Define the methods required for managing the lifecycle of the scoped beans.
+
+    java
+    Copy code
+    package com.example.demo.customscope;
+
+    import org.springframework.beans.factory.ObjectFactory;
+    import org.springframework.beans.factory.config.Scope;
+
+    public interface PeriodicScope extends Scope {
+    void refresh();
+    }
+    Implement the Custom Scope:
+    Create an implementation of the custom scope. In this example, we'll call it PeriodicScopeImpl. This class is responsible for managing the beans and periodically refreshing them.
+
+    java
+    Copy code
+    package com.example.demo.customscope;
+
+    import java.util.HashMap;
+    import java.util.Map;
+
+    public class PeriodicScopeImpl implements PeriodicScope {
+    private Map<String, Object> beans = new HashMap<>();
+    private long lastRefreshTime = System.currentTimeMillis();
+    private long refreshInterval = 5000; // Refresh every 5 seconds
+
+    @Override
+    public Object get(String name, ObjectFactory<?> objectFactory) {
+    if (!beans.containsKey(name) || shouldRefresh()) {
+    beans.put(name, objectFactory.getObject());
+    }
+    return beans.get(name);
+    }
+
+    @Override
+    public Object remove(String name) {
+    return beans.remove(name);
+    }
+
+    @Override
+    public void registerDestructionCallback(String name, Runnable callback) {
+    // No destruction callback in this simple example
+    }
+
+    @Override
+    public Object resolveContextualObject(String key) {
+    return null;
+    }
+
+    @Override
+    public String getConversationId() {
+    return null;
+    }
+
+    @Override
+    public void refresh() {
+    beans.clear();
+    lastRefreshTime = System.currentTimeMillis();
+    }
+
+    private boolean shouldRefresh() {
+    return (System.currentTimeMillis() - lastRefreshTime) >= refreshInterval;
+    }
+    }
+    Configure the Custom Scope:
+    In your Spring configuration, register the custom scope. You can do this by implementing a BeanFactoryPostProcessor that adds the custom scope to the ConfigurableBeanFactory.
+
+    java
+    Copy code
+    package com.example.demo.customscope;
+
+    import org.springframework.beans.BeansException;
+    import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+    import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+    import org.springframework.stereotype.Component;
+
+    @Component
+    public class PeriodicScopeRegistrar implements BeanFactoryPostProcessor {
+
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+    beanFactory.registerScope("periodic", new PeriodicScopeImpl());
+    }
+    }
+    Use the Custom Scope:
+    Now, you can use the custom scope in your beans by specifying the periodic scope in the @Scope annotation.
+
+    java
+    Copy code
+    package com.example.demo;
+
+    import com.example.demo.customscope.PeriodicScope;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.beans.factory.annotation.Qualifier;
+    import org.springframework.context.annotation.Scope;
+    import org.springframework.stereotype.Component;
+
+    @Component
+    @Scope("periodic")
+    public class PeriodicScopedBean {
+
+    @Autowired
+    @Qualifier("prototypeScopedBean")
+    private PrototypeScopedBean prototypeScopedBean;
+
+    public void performAction() {
+    System.out.println("Performing action using PeriodicScopedBean");
+    }
+    }
+    In this example, the PeriodicScopedBean is annotated with @Scope("periodic"), indicating that it should use the custom PeriodicScope. It has a dependency on a PrototypeScopedBean, which means that the PeriodicScope will recreate the PrototypeScopedBean periodically.
+
+    Remember that this is a simplified example, and in a real-world scenario, you might need to handle thread safety, cleanup, and other aspects based on your specific requirements. Custom scopes are typically used in complex applications with specific lifecycle management needs.

@@ -1,0 +1,59 @@
+Problem:
+Consider two beans of the same type:
+
+
+@Component
+public class BeanA implements MyInterface {
+    // BeanA implementation
+}
+
+@Component
+public class BeanB implements MyInterface {
+    // BeanB implementation
+}
+Now, in a service class, you want to autowire a bean of type MyInterface, but there's ambiguity:
+
+@Service
+public class MyService {
+
+    @Autowired
+    private MyInterface myBean; // Ambiguity: Which bean to inject?
+
+    // rest of the service code
+}
+Solution using @Qualifier:
+Annotate Beans with Qualifiers:
+
+@Component
+@Qualifier("beanA")
+public class BeanA implements MyInterface {
+    // BeanA implementation
+}
+
+@Component
+@Qualifier("beanB")
+public class BeanB implements MyInterface {
+    // BeanB implementation
+}
+Use @Qualifier in Autowiring:
+
+@Service
+public class MyService {
+
+    @Autowired
+    @Qualifier("beanA")
+    private MyInterface myBean;
+
+    // rest of the service code
+}
+How it Identifies the Qualifier "beanA":
+When you annotate a bean with @Qualifier("beanA"), you are providing a specific identifier (the qualifier) for that bean. In the example above, BeanA is annotated with @Qualifier("beanA").
+
+When you use @Autowired along with @Qualifier("beanA") in the MyService class, you are telling Spring to inject the bean with the specified qualifier. In this case, it's asking Spring to inject the bean identified by "beanA" (BeanA).
+
+By explicitly specifying the qualifier, you are resolving the ambiguity issue, and Spring knows exactly which bean to inject into the myBean variable in MyService.
+
+
+
+
+

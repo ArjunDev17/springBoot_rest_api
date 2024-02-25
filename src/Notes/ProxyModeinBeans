@@ -1,0 +1,48 @@
+Singleton Scope
+****************************************
+com.example.demo.scope.Fresher@2db2cd5 :--same
+com.example.demo.scope.Technology@70e659aa  :--same because Fresher same
+com.example.demo.scope.Fresher@2db2cd5 :--same
+com.example.demo.scope.Technology@70e659aa :--same because Fresher same
+
+Prototype
+****************************************
+Creating Fresher
+com.example.demo.scope.Fresher@615f972
+com.example.demo.scope.Technology@285f09de :--same
+Creating Fresher
+com.example.demo.scope.Fresher@73393584
+com.example.demo.scope.Technology@285f09de :--same  because it is still singleton  scope
+****************************************
+Creating Fresher
+Current tech
+com.example.demo.scope.Fresher@384fc774  : different to each other
+com.example.demo.scope.Technology@e3cee7b :different tech
+Creating Fresher
+Current tech
+com.example.demo.scope.Fresher@71e9a896 : different to each other
+com.example.demo.scope.Technology@6b9267b :different tech
+
+because above both have prototype scope
+**********************
+requirement is like this one object for Fresher but for tech different object address should create
+assume we create technology as singleton scope then
+****************************************
+Creating Fresher
+com.example.demo.scope.Fresher@69adf72c
+com.example.demo.scope.Technology@797501a
+Creating Fresher
+com.example.demo.scope.Fresher@1a15b789
+com.example.demo.scope.Technology@797501a
+
+which not matching for requirement
+now see
+****************************************
+Creating Fresher
+com.example.demo.scope.Fresher@51c929ae
+Current tech
+com.example.demo.scope.Technology@60afd40d
+Creating Fresher
+com.example.demo.scope.Fresher@28a2a3e7
+Current tech
+com.example.demo.scope.Technology@3f2049b6

@@ -1,0 +1,122 @@
+resolve ambiguity @Primary @ComponentScan annotation first tell  problem why we need one by
+one after that show the solution take one student example
+
+Sure, let's go step by step through the scenario where ambiguity arises, and then we'll resolve it using @Primary and @ComponentScan.
+
+Problem:
+Consider a scenario where you have multiple implementations of an interface,
+and you want to inject one of them into a class using Spring's dependency injection.
+
+public interface Student {
+    // Some methods
+}
+Now, you have two implementations of the Student interface:
+
+@Component
+public class CollegeStudent implements Student {
+    // Implementation for CollegeStudent
+}
+
+@Component
+public class SchoolStudent implements Student {
+    // Implementation for SchoolStudent
+}
+And in a service class, you want to autowire a Student:
+
+@Service
+public class SchoolService {
+
+    @Autowired
+    private Student student; // Ambiguity: Which bean to inject?
+
+    // rest of the service code
+}
+Solution using @Primary:
+Annotate One Bean with @Primary:
+
+@Component
+@Primary
+public class CollegeStudent implements Student {
+    // Implementation for CollegeStudent
+}
+
+@Component
+public class SchoolStudent implements Student {
+    // Implementation for SchoolStudent
+}
+Use @Autowired in the Service Class:
+
+@Service
+public class SchoolService {
+
+    @Autowired
+    private Student student; // Resolved: Injects the bean with @Primary annotation
+
+    // rest of the service code
+}
+How it Resolves Ambiguity:
+By adding @Primary to the CollegeStudent class, you are indicating to Spring that if there is ambiguity during injection, it should give priority to the bean with @Primary. In this case, the CollegeStudent bean becomes the primary candidate for injection.
+
+When the @Autowired is used in the SchoolService class, Spring injects the Student bean marked with @Primary (which is CollegeStudent). This way, the ambiguity is resolved, and you have a clear definition of which bean should be injected.
+
+This approach is useful when you want to provide a default or primary implementation when multiple candidates are available.
+
+User
+for aboveSolution using @Primary we can solve by @Qualifer what is the diffrence
+
+Both @Primary and @Qualifier are ways to address the issue of ambiguity when multiple beans of the same type exist. However, they serve slightly different purposes:
+
+@Primary:
+
+@Primary is used to indicate a primary bean when there are multiple candidates of the same type.
+It is a global way of specifying which bean should be given preference if there is ambiguity.
+Only one bean can be marked as @Primary within the context, and that bean becomes the default choice for injection if a specific qualifier is not provided.
+Example:
+
+@Component
+@Primary
+public class CollegeStudent implements Student {
+    // Implementation for CollegeStudent
+}
+
+@Component
+public class SchoolStudent implements Student {
+    // Implementation for SchoolStudent
+}
+java
+Copy code
+@Service
+public class SchoolService {
+
+    @Autowired
+    private Student student; // Injects the bean with @Primary annotation (CollegeStudent)
+
+    // rest of the service code
+}
+@Qualifier:
+@Qualifier is used to specify a particular qualifier when there are multiple beans of the same type.
+It allows you to be more specific about which bean you want to inject at a particular injection point.
+You can have multiple beans with different qualifiers, and you need to use @Qualifier at the injection point to specify which one to inject.
+Example:
+@Component
+@Qualifier("college")
+public class CollegeStudent implements Student {
+    // Implementation for CollegeStudent
+}
+
+@Component
+@Qualifier("school")
+public class SchoolStudent implements Student {
+    // Implementation for SchoolStudent
+}
+java
+Copy code
+@Service
+public class SchoolService {
+    @Autowired
+    @Qualifier("college")
+    private Student student; // Injects the bean with @Qualifier("college") annotation (CollegeStudent)
+
+    // rest of the service code
+}
+In summary, @Primary provides a global default choice for injection, while @Qualifier allows for more fine-grained control at the point of injection by specifying the exact qualifier. You can choose the approach based on the requirements of your application and how you want to manage bean injection in different scenarios.

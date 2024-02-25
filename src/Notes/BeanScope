@@ -1,0 +1,79 @@
+explain in depth scope of beans with example how many types of bean scope  for each give short example
+ChatGPT
+In Spring, the scope of a bean defines the lifecycle and visibility of that bean within the Spring container. There are several bean scopes available in Spring, each serving a different purpose. Here are the main bean scopes:
+
+Singleton Scope:
+
+Description: This is the default scope in Spring. When a bean is defined with singleton scope,
+ there is only one instance of that bean in the Spring container.
+Example:
+java
+Copy code
+@Component
+public class MySingletonBean {
+    // Bean definition
+}
+
+Prototype Scope:
+Description: In prototype scope, a new instance of the bean is created each time it is requested.
+This means that a new object is returned for every injection point or getBean() call.
+Example:
+java
+Copy code
+@Component
+@Scope("prototype")
+public class MyPrototypeBean {
+    // Bean definition
+}
+Request Scope:
+Description: This scope is specific to web applications. A new instance of the bean is created for each
+HTTP request, and it is available only during the processing of that request.
+Example:
+java
+Copy code
+@Component
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class MyRequestScopedBean {
+    // Bean definition
+}
+Session Scope:
+Description: Similar to request scope, but the bean instance is bound to an HTTP session. This means
+a new instance is created for each user session in a web application.
+Example:
+java
+Copy code
+@Component
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class MySessionScopedBean {
+    // Bean definition
+}
+Application Scope:
+Description: This scope is also specific to web applications. The bean instance is created once for the
+entire lifecycle of the application and is shared among all sessions and requests.
+Example:
+java
+Copy code
+@Component
+@Scope(value = WebApplicationContext.SCOPE_APPLICATION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class MyApplicationScopedBean {
+    // Bean definition
+}
+WebSocket Scope:
+Description: Introduced in Spring 5, this scope is specific to WebSocket-based applications.
+It provides a separate instance for each WebSocket session.
+Example:
+java
+Copy code
+@Component
+@Scope(value = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class MyWebSocketScopedBean {
+    // Bean definition
+}
+Custom Scope:
+Description: You can create your own custom scopes by implementing the
+org.springframework.beans.factory.config.Scope interface.
+This allows you to define the exact behavior of the scope.Example: (Custom scope implementation not
+provided here due to its complexity)
+Choosing the right scope depends on the use case and requirements of your application.
+Singleton is the most common scope, but others are valuable in specific contexts, especially in
+web applications.
