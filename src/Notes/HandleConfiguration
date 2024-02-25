@@ -1,0 +1,86 @@
+Handling multiple configuration files in a Spring application can be achieved in different ways depending on your setup. Below, I'll provide you with a general guide using both annotation-based and XML-based configurations.
+
+Annotation-Based Configuration
+Create Configuration Classes:
+
+Define multiple configuration classes, each handling a specific set of configurations.
+java
+Copy code
+// AppConfig1.java
+@Configuration
+public class AppConfig1 {
+    // Configuration for the first set of beans
+}
+java
+Copy code
+// AppConfig2.java
+@Configuration
+public class AppConfig2 {
+    // Configuration for the second set of beans
+}
+Main Configuration Class:
+
+Create a main configuration class that imports other configuration classes.
+java
+Copy code
+// MainConfig.java
+@Configuration
+@Import({ AppConfig1.class, AppConfig2.class })
+public class MainConfig {
+    // Main configuration class
+}
+XML-Based Configuration
+Create XML Configuration Files:
+
+Define multiple XML files, each handling a specific set of configurations.
+xml
+Copy code
+<!-- config1.xml -->
+<beans>
+    <!-- Configuration for the first set of beans -->
+</beans>
+xml
+Copy code
+<!-- config2.xml -->
+<beans>
+    <!-- Configuration for the second set of beans -->
+</beans>
+Main XML Configuration File:
+
+Create a main XML configuration file that imports other XML files.
+xml
+Copy code
+<!-- main-config.xml -->
+<beans>
+    <import resource="classpath:config1.xml"/>
+    <import resource="classpath:config2.xml"/>
+</beans>
+Using in Application
+In your main application class or wherever you want to use the configurations:
+
+Annotation-Based Configuration
+java
+Copy code
+@Configuration
+@Import(MainConfig.class)
+public class ApplicationConfig {
+    // Main application configuration
+}
+XML-Based Configuration
+java
+Copy code
+public class Application {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("main-config.xml");
+
+        // Use the context to get beans and perform operations
+    }
+}
+Additional Notes:
+For annotation-based configuration, you can use @ComponentScan in your main configuration class or application class to automatically detect and register beans.
+
+Ensure that your XML files are placed in the correct location, usually in the src/main/resources directory for a Maven project.
+
+Adjust the package names and configurations according to your project structure and requirements.
+
+This approach allows you to organize configurations in a modular way, making it easier to manage and understand, especially in larger projects.
