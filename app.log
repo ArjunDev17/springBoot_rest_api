@@ -1,0 +1,37 @@
+2024-03-08T21:51:34.800+05:30  INFO 5723 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : Starting SpringMvcApplication using Java 17.0.10 with PID 5723 (/home/arjun/Backend/JB/springMvc/target/classes started by arjun in /home/arjun/Backend/JB/springMvc)
+2024-03-08T21:51:34.805+05:30  INFO 5723 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-03-08T21:51:34.956+05:30  INFO 5723 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-03-08T21:51:34.957+05:30  INFO 5723 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-03-08T21:51:37.125+05:30  INFO 5723 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 5050 (http)
+2024-03-08T21:51:37.144+05:30  INFO 5723 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-08T21:51:37.145+05:30  INFO 5723 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-08T21:51:37.235+05:30  INFO 5723 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-08T21:51:37.241+05:30  INFO 5723 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2278 ms
+2024-03-08T21:51:37.896+05:30  WARN 5723 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Multiple @RequestMapping annotations found on public org.springframework.http.ResponseEntity com.codeneeti.springMvc.controllers.Customer.setCustomer(java.util.List), but only the first will be used: [@org.springframework.web.bind.annotation.RequestMapping(consumes={}, headers={}, method={}, name="", params={}, path={"/about"}, produces={}, value={"/about"}), @org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={})]
+2024-03-08T21:51:38.410+05:30  INFO 5723 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-03-08T21:51:38.505+05:30  INFO 5723 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 5050 (http) with context path ''
+2024-03-08T21:51:38.547+05:30  INFO 5723 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : Started SpringMvcApplication in 4.7 seconds (process running for 5.874)
+2024-03-08T21:51:41.186+05:30  INFO 5723 --- [http-nio-5050-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-08T21:51:41.187+05:30  INFO 5723 --- [http-nio-5050-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-03-08T21:51:41.190+05:30  INFO 5723 --- [http-nio-5050-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-03-08T21:51:41.248+05:30 ERROR 5723 --- [http-nio-5050-exec-1] c.c.springMvc.controllers.Products       : pid 12
+2024-03-08T21:58:56.722+05:30 ERROR 5723 --- [http-nio-5050-exec-5] c.c.springMvc.controllers.Products       : pid 12
+2024-03-08T21:59:12.348+05:30  INFO 6024 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : Starting SpringMvcApplication using Java 17.0.10 with PID 6024 (/home/arjun/Backend/JB/springMvc/target/classes started by arjun in /home/arjun/Backend/JB/springMvc)
+2024-03-08T21:59:12.352+05:30 DEBUG 6024 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : Running with Spring Boot v3.2.3, Spring v6.1.4
+2024-03-08T21:59:12.354+05:30  INFO 6024 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-03-08T21:59:12.493+05:30  INFO 6024 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-03-08T21:59:12.493+05:30  INFO 6024 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-03-08T21:59:14.206+05:30  INFO 6024 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 5050 (http)
+2024-03-08T21:59:14.220+05:30  INFO 6024 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-08T21:59:14.221+05:30  INFO 6024 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-08T21:59:14.274+05:30  INFO 6024 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-08T21:59:14.275+05:30  INFO 6024 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1781 ms
+2024-03-08T21:59:14.557+05:30  WARN 6024 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Multiple @RequestMapping annotations found on public org.springframework.http.ResponseEntity com.codeneeti.springMvc.controllers.Customer.setCustomer(java.util.List), but only the first will be used: [@org.springframework.web.bind.annotation.RequestMapping(consumes={}, headers={}, method={}, name="", params={}, path={"/about"}, produces={}, value={"/about"}), @org.springframework.web.bind.annotation.PostMapping(consumes={}, headers={}, name="", params={}, path={}, produces={}, value={})]
+2024-03-08T21:59:14.824+05:30  INFO 6024 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-03-08T21:59:14.866+05:30  INFO 6024 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 5050 (http) with context path ''
+2024-03-08T21:59:14.885+05:30  INFO 6024 --- [restartedMain] c.c.springMvc.SpringMvcApplication       : Started SpringMvcApplication in 3.562 seconds (process running for 4.439)
+2024-03-08T21:59:20.009+05:30  INFO 6024 --- [http-nio-5050-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-08T21:59:20.011+05:30  INFO 6024 --- [http-nio-5050-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-03-08T21:59:20.016+05:30  INFO 6024 --- [http-nio-5050-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-03-08T21:59:20.070+05:30 ERROR 6024 --- [http-nio-5050-exec-1] c.c.springMvc.controllers.Products       : pid 12
+2024-03-08T21:59:20.072+05:30 DEBUG 6024 --- [http-nio-5050-exec-1] c.c.springMvc.controllers.Products       : debugging mode
